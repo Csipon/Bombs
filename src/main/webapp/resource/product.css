@@ -1,0 +1,21 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* ---------- GENERAL ---------- */
+
+body {
+}
+
+.prod{
+    width: 800px;
+    align-content: center;
+}
+
+.info{
+    width: 250px;
+}
+
+.productImg{
+    width: 200px;
+    align-content: center;
+}
