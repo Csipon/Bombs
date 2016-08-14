@@ -1,6 +1,6 @@
 package project.service.mysql;
 
-import project.service.User;
+import project.service.entity.User;
 import project.service.dao.AbstractJDBCDao;
 import project.service.dao.DaoFactory;
 import project.service.dao.PersistException;
@@ -16,6 +16,7 @@ import java.util.List;
  */
 
 public class MySqlUserDao extends AbstractJDBCDao<User, Integer> {
+
     private class PersistUser extends User {
         public void setId(int id) {
             super.setId(id);
@@ -29,7 +30,7 @@ public class MySqlUserDao extends AbstractJDBCDao<User, Integer> {
 
     @Override
     public String getUpdateQuery() {
-        return "UPDATE oxeygen.users SET first_name = ?, last_name = ?, password = ?, hobby = ? WHERE id = ?";
+        return "UPDATE oxeygen.users SET nick = ?, first_name = ?, last_name = ?, password = ?, about = ?, email = ? WHERE id = ?";
     }
 
     @Override
@@ -39,7 +40,7 @@ public class MySqlUserDao extends AbstractJDBCDao<User, Integer> {
 
     @Override
     public String getCreateQuery() {
-        return "INSERT INTO oxeygen.users (first_name, last_name, password, hobby) VALUES(?, ?, ?, ?)";
+        return "INSERT INTO oxeygen.users (nick, first_name, last_name, password, about, email) VALUES(?, ?, ?, ?, ?, ?)";
     }
 
     @Override
@@ -59,10 +60,12 @@ public class MySqlUserDao extends AbstractJDBCDao<User, Integer> {
             while (rs.next()) {
                 PersistUser user = new PersistUser();
                 user.setId(rs.getInt("id"));
+                user.setNick(rs.getString("nick"));
                 user.setFirstName(rs.getString("first_name"));
                 user.setLastName(rs.getString("last_name"));
                 user.setPassword(rs.getString("password"));
-                user.setHobby(rs.getString("hobby"));
+                user.setAbout(rs.getString("about"));
+                user.setEmail(rs.getString("email"));
                 result.add(user);
             }
         } catch (Exception e) {
@@ -74,10 +77,12 @@ public class MySqlUserDao extends AbstractJDBCDao<User, Integer> {
     @Override
     protected void prepareStatementForInsert(PreparedStatement statement, User object) throws PersistException {
         try {
-            statement.setString(1, object.getFirstName());
-            statement.setString(2, object.getLastName());
-            statement.setString(3, object.getPassword());
-            statement.setString(4, object.getHobby());
+            statement.setString(1, object.getNick());
+            statement.setString(2, object.getFirstName());
+            statement.setString(3, object.getLastName());
+            statement.setString(4, object.getPassword());
+            statement.setString(5, object.getAbout());
+            statement.setString(6, object.getEmail());
         } catch (Exception e) {
             throw new PersistException(e);
         }
@@ -86,11 +91,13 @@ public class MySqlUserDao extends AbstractJDBCDao<User, Integer> {
     @Override
     protected void prepareStatementForUpdate(PreparedStatement statement, User object) throws PersistException {
         try {
-            statement.setString(1, object.getFirstName());
-            statement.setString(2, object.getLastName());
-            statement.setString(3, object.getPassword());
-            statement.setString(4, object.getHobby());
-            statement.setInt(5, object.getId());
+            statement.setString(1, object.getNick());
+            statement.setString(2, object.getFirstName());
+            statement.setString(3, object.getLastName());
+            statement.setString(4, object.getPassword());
+            statement.setString(5, object.getAbout());
+            statement.setString(6, object.getEmail());
+            statement.setInt(7, object.getId());
         } catch (Exception e) {
             throw new PersistException(e);
         }

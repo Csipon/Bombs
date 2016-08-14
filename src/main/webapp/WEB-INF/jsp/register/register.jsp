@@ -14,14 +14,16 @@
     <div align="center">
         <h1>Registration</h1>
         <form action="/addUser" method="post">
-            First name(2-30) : <input type="text" name="firstName"/></p>
-            Last name(2-30) : <input type="text" name="lastName"/></p>
+            Nick (2-10) : <input type="text" name="nick"/></p>
+            First name(2-16) : <input type="text" name="firstName"/></p>
+            Last name(2-16) : <input type="text" name="lastName"/></p>
             Password(6-16) : <input type="text" name="password"/></p>
-            Hobby(2-55) : <input type="text" name="hobby"/></p>
+            About(< 255) : <input type="text" name="about"/></p>
+            E-mail : <input type="text" name="email"/></p>
             <input type="submit" value="SUBMIT">
             <input type="reset" value="REST">
         </form>
-        <a href="/"><button>Back</button></a>
+        <a href="/checkLogin"><button>Back</button></a>
     </div>
 </body>
 </html>

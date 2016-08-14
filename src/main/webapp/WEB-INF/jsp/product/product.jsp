@@ -38,6 +38,7 @@
                     </li>
                 </c:forEach>
             </ul>
+            <h3>${price}</h3> <a href="<c:url value="/buy"/>"><button>Buy product</button></a>
         </div>
     </div>
 </body>

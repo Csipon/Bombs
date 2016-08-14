@@ -13,6 +13,6 @@
 <body>
     <p>Кнопка нажата через ${result} сек </p>
 
-    <a href="/"><button>Back</button></a>
+    <a href="/checkLogin"><button>Back</button></a>
 </body>
 </html>

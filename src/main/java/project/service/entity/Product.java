@@ -1,4 +1,4 @@
-package project.service;
+package project.service.entity;
 
 import project.service.dao.Identified;
 

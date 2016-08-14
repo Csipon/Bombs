@@ -1,11 +1,6 @@
 package project.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import project.service.User;
+import project.service.entity.User;
 import project.service.dao.PersistException;
 import project.service.mysql.MySqlDaoFactory;
 import project.service.mysql.MySqlUserDao;
@@ -17,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -35,8 +29,6 @@ public class LoginController  extends HttpServlet{
     private MySqlDaoFactory factory = new MySqlDaoFactory();
     private MySqlUserDao userDao = null;
 
-
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter(NAME);
@@ -49,7 +41,7 @@ public class LoginController  extends HttpServlet{
                     HttpSession session = req.getSession(true);
                     boolean isFlag = false;
                     for (User u : userList) {
-                        if (u.getFirstName().equalsIgnoreCase(name) && u.getPassword().equals(password)) {
+                        if (u.getNick().equalsIgnoreCase(name) && u.getPassword().equals(password)) {
                             session.setAttribute(NICK, u);
                             isFlag = true;
                             break;

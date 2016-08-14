@@ -1,6 +1,6 @@
 package project.service.mysql;
 
-import project.service.Product;
+import project.service.entity.Product;
 import project.service.dao.AbstractJDBCDao;
 import project.service.dao.DaoFactory;
 import project.service.dao.PersistException;

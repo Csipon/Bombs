@@ -1,4 +1,4 @@
-package project.service;
+package project.service.entity;
 
 import project.service.dao.Identified;
 
@@ -11,14 +11,33 @@ import javax.validation.constraints.Size;
 public class User implements Identified<Integer> {
     private Integer id = null;
     @NotNull
-    @Size(min = 2, max = 30)
+    @Size(min = 2, max = 16)
     private String firstName, lastName;
     @NotNull
     @Size(min = 6, max = 16)
     private String password;
-    @NotNull
-    @Size(min = 2, max = 55)
-    private String hobby;
+    private String about;
+
+
+    @Size(min = 2, max = 10)
+    private String nick;
+    private String email;
+
+    public String getNick() {
+        return nick;
+    }
+
+    public void setNick(String nick) {
+        this.nick = nick;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public Integer getId() {
         return id;
@@ -52,22 +71,13 @@ public class User implements Identified<Integer> {
         this.password = password;
     }
 
-    public String getHobby() {
-        return hobby;
+    public String getAbout() {
+        return about;
     }
 
-    public void setHobby(String hobby) {
-        this.hobby = hobby;
+    public void setAbout(String about) {
+        this.about = about;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", password='" + password + '\'' +
-                ", hobby='" + hobby + '\'' +
-                '}';
-    }
+
 }

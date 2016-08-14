@@ -18,7 +18,7 @@
             <input type="submit" value="SUBMIT">
             <input type="reset" value="REST">
         </form>
-        <a href="/"><button>Back</button></a>
+        <a href="/checkLogin"><button>Back</button></a>
     </div>
 </body>
 </html>

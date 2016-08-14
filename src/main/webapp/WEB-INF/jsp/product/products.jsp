@@ -20,5 +20,6 @@
             </li>
         </c:forEach>
     </ul>
+    <a href="/checkLogin"><button>Back</button></a>
 </body>
 </html>

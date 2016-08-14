@@ -13,10 +13,12 @@
 </head>
 <body>
     <div class="user">
-        <p><b>User :</b> ${user.id}. ${user.firstName}</p>
+        <p><b>User :</b> ${user.id}. ${user.nick}</p>
         <p><b>Last Name :</b> ${user.lastName}</p>
         <p><b>Password :</b> ${user.password}</p>
-        <p><b>Hobby :</b> ${user.hobby}</p><br/>
+        <p><b>About :</b> ${user.about}</p>
+        <p><b>E-mail :</b> ${user.email}</p>
+        <p><b>About :</b> ${user.about}</p><br/>
         <a href="/getAll">Back</a>
     </div>
 </body>

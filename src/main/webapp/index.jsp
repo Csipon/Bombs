@@ -14,7 +14,7 @@
 <div align="center">
     <h1>Registration</h1>
     <form action="/log" method="post">
-        Name : <input type="text" name="name" placeholder="Username..."/>
+        Login : <input type="text" name="name" placeholder="User nick..."/>
         Password : <input type="password" name="password" placeholder="Password..."/>
         <br/><br/>
         <input type="submit" value="SUBMIT">

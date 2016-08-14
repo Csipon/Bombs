@@ -13,13 +13,16 @@
 </head>
 <body>
 <div align="center">
-    <h1>Welcome </h1>
+    <h1>Welcome ${nick.firstName} ${nick.lastName}</h1>
     <a href="<c:url value="/register" />"><button>Register</button></a> |
-    <a href="<c:url value="/signIn" />"><button>Sign in</button></a> |
     <a href="<c:url value="/information"/>"><button>Information</button></a> |
     <a href="<c:url value="/to.mail"/>"><button>Send e-mail</button></a> |
     <a href="<c:url value="/products"/>"><button>Products</button></a> |
     <a href="<c:url value="/getAll" />"><button>Users</button></a><br><br>
+
+    <div align="right">
+        <a href="/exit">Exit</a>
+    </div>
 
     <jsp:useBean id="calendar" class="java.util.GregorianCalendar"/>
     <form action="/time" method="POST">

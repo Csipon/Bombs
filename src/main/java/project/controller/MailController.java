@@ -23,11 +23,6 @@ import java.util.Properties;
 @Controller
 public class MailController  extends HttpServlet{
 
-    @RequestMapping(value = "/to.mail", method = RequestMethod.GET)
-    public String toMail(){
-        return "mail/sendmail";
-    }
-
     @RequestMapping(value = "/send", method = RequestMethod.POST)
     public String doSend(@RequestParam String to, @RequestParam String subject, @RequestParam String body)
     {

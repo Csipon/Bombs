@@ -1,6 +1,6 @@
 package project.controller;
 
-import project.service.User;
+import project.service.entity.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,13 +17,15 @@ import java.io.IOException;
 public class CheckingController extends HttpServlet {
     private static final String NICK = "nick";
 
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute(NICK);
-        if (user == null){
+        if (user != null){
+            resp.sendRedirect("/home");
+        }else{
             resp.sendRedirect("/index");
         }
     }
+
 }

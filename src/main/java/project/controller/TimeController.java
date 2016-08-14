@@ -14,9 +14,6 @@ import java.util.GregorianCalendar;
  */
 @Controller
 public class TimeController {
-    private final StringBuilder lock = new StringBuilder();
-
-
     @RequestMapping(value = "/time", method = RequestMethod.POST)
     public String getTime(@RequestParam("time") String calendar, Model model){
         GregorianCalendar gc = new GregorianCalendar();

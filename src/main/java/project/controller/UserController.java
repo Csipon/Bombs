@@ -6,7 +6,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import project.service.User;
+import project.service.entity.User;
 import project.service.dao.PersistException;
 import project.service.mysql.MySqlDaoFactory;
 import project.service.mysql.MySqlUserDao;
@@ -19,19 +19,6 @@ public class UserController {
 
     private MySqlUserDao userDao;
 
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String register(){
-        return "register/register";
-    }
-
-    @RequestMapping(value = "/signIn", method = RequestMethod.GET)
-    public String login(){ return "login/login"; }
-
-    @RequestMapping(value = "/information", method = RequestMethod.GET)
-    public String info(){
-        return "user/info";
-    }
-
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
     public String addUser(@Valid User user, Model model, Errors errors)
     {
@@ -43,10 +30,12 @@ public class UserController {
             if (userDao == null){userDao = new MySqlUserDao(factory, factory.getContext());}
             u = userDao.create();
 
+            u.setNick(user.getNick());
             u.setFirstName(user.getFirstName());
             u.setLastName(user.getLastName());
             u.setPassword(user.getPassword());
-            u.setHobby(user.getHobby());
+            u.setAbout(user.getAbout());
+            u.setEmail(user.getEmail());
             userDao.update(u);
 
             model.addAttribute("user", u);

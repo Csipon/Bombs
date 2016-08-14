@@ -1,7 +1,7 @@
 package project.service.mysql;
 
-import project.service.Product;
-import project.service.User;
+import project.service.entity.Product;
+import project.service.entity.User;
 import project.service.dao.DaoFactory;
 import project.service.dao.GenericDao;
 import project.service.dao.PersistException;
