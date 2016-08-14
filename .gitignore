@@ -4,6 +4,3 @@
 src/test/
 target/
 .idea/uiDesigner.xml
-src/main/java/project/controller/BuyController.java
-src/main/java/project/controller/ExitController.java
-src/main/webapp/WEB-INF/jsp/product/bought.jsp
