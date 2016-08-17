@@ -16,7 +16,7 @@
         <br/>
         <p>If you gonna send again mail <a href="/to.mail">Click here</a></p>
         <br/>
-        <p>That come back to home <a href="/index.jsp">Home</a></p>
+        <p>That come back to home <a href="/checkLogin">Home</a></p>
     </div>
 </body>
 </html>

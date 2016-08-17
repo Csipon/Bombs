@@ -23,7 +23,7 @@ public class CleanBucketController  extends HttpServlet{
 
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String idStr = req.getParameter(PARAM_ID);
         if (idStr != null){
             Integer id = Integer.parseInt(idStr);

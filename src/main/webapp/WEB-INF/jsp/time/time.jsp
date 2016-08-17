@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: HOUSE
@@ -14,5 +15,9 @@
     <p>Кнопка нажата через ${result} сек </p>
 
     <a href="/checkLogin"><button>Back</button></a>
+
+    <c:forEach items="${cookie}" var="cook">
+        <p>${cook.key} | ${cook.value}</p>
+    </c:forEach>
 </body>
 </html>

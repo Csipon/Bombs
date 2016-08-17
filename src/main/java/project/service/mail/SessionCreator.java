@@ -21,16 +21,15 @@ public class SessionCreator {
         userName = configProperties.getProperty("mail.user.name");
         userPassword = configProperties.getProperty("mail.user.password");
 
-        sessionProperties = new Properties();
+        sessionProperties = System.getProperties();
         sessionProperties.setProperty("mail.transport.protocol", "smtp");
         sessionProperties.setProperty("mail.smtp.host", smtpHost);
         sessionProperties.setProperty("mail.smtp.auth", "true");
-        sessionProperties.put("mail.smtp.port", Integer.parseInt(smtpPort));
+        sessionProperties.put("mail.smtp.port", smtpPort);
         sessionProperties.put("mail.smtp.starttls.enable", "true");
-        sessionProperties.put("mail.smtp.socketFactory.port", Integer.parseInt(smtpPort));
+        sessionProperties.put("mail.smtp.socketFactory.port", smtpPort);
         sessionProperties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         sessionProperties.put("mail.smtp.socketFactory.fallback", "true");
-        sessionProperties.setProperty("mail.smtp.quitwait", "false");
     }
 
     public Session createSession() {
