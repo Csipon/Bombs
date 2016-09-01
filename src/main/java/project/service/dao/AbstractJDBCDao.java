@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -169,6 +170,11 @@ public abstract class AbstractJDBCDao<T extends Identified<PK>, PK extends Integ
     public AbstractJDBCDao(DaoFactory<Connection> parentFactory, Connection connection) {
         this.parentFactory = parentFactory;
         this.connection = connection;
+        try {
+            connection.setAutoCommit(true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     protected Identified getDependence(Class<? extends Identified> dtoClass, Serializable pk) throws PersistException {

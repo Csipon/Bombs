@@ -13,8 +13,8 @@ public class ErrorController {
         return "404";
     }
 
-    @RequestMapping(value = "/400", method = RequestMethod.GET)
+    @RequestMapping(value = "/403", method = RequestMethod.GET)
     public String errorRegister() {
-        return "400";
+        return "403";
     }
 }

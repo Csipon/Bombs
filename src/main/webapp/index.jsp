@@ -17,7 +17,7 @@
         Login : <input type="text" name="name" placeholder="User nick..."/>
         Password : <input type="password" name="password" placeholder="Password..."/>
         <br/><br/>
-        <input type="submit" value="SUBMIT">
+        <input type="submit" value="Log in">
         <input type="reset" value="REST">
     </form>
     <a href="<c:url value="/register" />"><button>Register</button></a>

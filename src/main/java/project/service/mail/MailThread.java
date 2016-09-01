@@ -1,5 +1,7 @@
 package project.service.mail;
 
+import com.google.api.client.repackaged.org.apache.commons.codec.binary.Base64;
+
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -7,6 +9,8 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Properties;
 
 /**

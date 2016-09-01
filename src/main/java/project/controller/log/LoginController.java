@@ -1,5 +1,6 @@
-package project.controller;
+package project.controller.log;
 
+import org.springframework.transaction.annotation.Transactional;
 import project.service.entity.User;
 import project.service.dao.PersistException;
 import project.service.mysql.MySqlDaoFactory;
@@ -24,11 +25,12 @@ public class LoginController  extends HttpServlet{
     private static final String NAME = "name";
     private static final String NICK = "nick";
     private static final String PASSWORD = "password";
-    private static final String PAGE_ERROR = "404";
+    private static final String PAGE_ERROR = "403";
 
     private MySqlDaoFactory factory = new MySqlDaoFactory();
     private MySqlUserDao userDao = null;
 
+    @Transactional
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter(NAME);

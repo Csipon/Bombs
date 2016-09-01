@@ -20,6 +20,36 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
+        <!-- SPRING TX -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>3.0.5.RELEASE</version>
+        </dependency>
+
+
+        <!--Google API -->
+
+        <dependency>
+            <groupId>com.google.api-client</groupId>
+            <artifactId>google-api-client</artifactId>
+            <version>1.22.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-gmail</artifactId>
+            <version>v1-rev48-1.22.0</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.google.oauth-client</groupId>
+            <artifactId>google-oauth-client-jetty</artifactId>
+            <version>1.22.0</version>
+        </dependency>
+
+
         <!--Servlet API and JSTL-->
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -35,6 +65,15 @@
             <scope>provided</scope>
         </dependency>
 
+
+        <!--LOG4J Logger-->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+
+
         <!--JavaMail-->
         <dependency>
             <groupId>javax.mail</groupId>
@@ -42,22 +81,17 @@
             <version>1.4</version>
         </dependency>
 
-        <!--The End-->
-
-
         <!-- MySQL libs-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.6</version>
         </dependency>
-        <!--The End MySql-->
     </dependencies>
 
     <properties>
         <java.version>1.8</java.version>
     </properties>
-
 
     <build>
         <plugins>

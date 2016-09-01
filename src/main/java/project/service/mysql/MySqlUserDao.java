@@ -25,7 +25,7 @@ public class MySqlUserDao extends AbstractJDBCDao<User, Integer> {
 
     @Override
     public String getSelectQuery() {
-        return "SELECT * FROM oxeygen.users";
+        return "SELECT id, nick, first_name, last_name, password, about, email FROM oxeygen.users";
     }
 
     @Override

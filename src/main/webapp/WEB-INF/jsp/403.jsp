@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page isErrorPage="true" %>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -15,13 +16,13 @@
 <div class="container">
     <div class="col-lg-8 col-lg-offset-2 text-center" align="center">
         <div class="logo">
-            <h1>400</h1>
+            <h1>403</h1>
         </div>
-        <p class="lead text-muted">Sorry, You do not entered correct data for registration</p>
+        <p class="lead text-muted">Sorry, You entered incorrect data</p>
         <br>
         <div class="col-lg-6 col-lg-offset-3">
             <div class="btn-group btn-group-justified">
-                <a href="/register" class="btn btn-warning">Return to register</a>
+                <a href="/checkLogin" class="btn btn-warning">Return to register</a>
             </div>
         </div>
     </div>

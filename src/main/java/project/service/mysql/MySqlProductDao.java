@@ -1,5 +1,6 @@
 package project.service.mysql;
 
+import org.springframework.context.annotation.Bean;
 import project.service.entity.Product;
 import project.service.dao.AbstractJDBCDao;
 import project.service.dao.DaoFactory;
@@ -23,7 +24,7 @@ public class MySqlProductDao extends AbstractJDBCDao<Product, Integer> {
 
     @Override
     public String getSelectQuery() {
-        return "SELECT * FROM oxeygen.product";
+        return "SELECT id, name, price, about  FROM oxeygen.product";
     }
 
     @Override

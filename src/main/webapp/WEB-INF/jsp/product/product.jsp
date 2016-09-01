@@ -25,7 +25,9 @@
             <br/><a href="<c:url value="/products" />">Back</a>
         </div>
         <br/>
-        <a href="./addToBucket?id=${product.id}">Add this product to bucket</a>
+        <div class="addToBucket">
+            <a href="./addToBucket?id=${product.id}">Add to bucket</a>
+        </div>
 
         <div>
             <h3>Your product bucket</h3>

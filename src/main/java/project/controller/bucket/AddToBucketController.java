@@ -1,5 +1,6 @@
-package project.controller;
+package project.controller.bucket;
 
+import org.springframework.transaction.annotation.Transactional;
 import project.service.entity.Product;
 import project.service.dao.PersistException;
 import project.service.mysql.MySqlDaoFactory;
@@ -28,9 +29,8 @@ public class AddToBucketController extends HttpServlet{
 
     private MySqlDaoFactory factory = new MySqlDaoFactory();
     private MySqlProductDao productDao;
-//    private MySqlUserDao userDao;
-//    private MySqlBucketDao bucketDao;
 
+    @Transactional
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String idStr = req.getParameter(PARAM_ID);

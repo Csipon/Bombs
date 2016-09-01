@@ -1,5 +1,6 @@
 package project.service.mysql;
 
+import org.springframework.context.annotation.Bean;
 import project.service.entity.Product;
 import project.service.entity.User;
 import project.service.dao.DaoFactory;
@@ -15,6 +16,7 @@ import java.util.Map;
 /**
  * Created by HOUSE on 12.07.2016.
  */
+
 public class MySqlDaoFactory implements DaoFactory<Connection> {
 
     private static final String NAME = "root";

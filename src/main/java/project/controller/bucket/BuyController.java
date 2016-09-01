@@ -1,4 +1,4 @@
-package project.controller;
+package project.controller.bucket;
 
 import project.service.entity.Product;
 

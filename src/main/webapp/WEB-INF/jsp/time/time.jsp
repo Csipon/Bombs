@@ -9,15 +9,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <link href="<c:url value="../../resource/menu.css" />" rel="stylesheet">
     <title>Result time</title>
 </head>
 <body>
-    <p>Кнопка нажата через ${result} сек </p>
-
-    <a href="/checkLogin"><button>Back</button></a>
-
-    <c:forEach items="${cookie}" var="cook">
-        <p>${cook.key} | ${cook.value}</p>
-    </c:forEach>
+    <p>Время :${calendar.time}</p>
+    <a href="/checkLogin"><button>Update</button></a>
 </body>
 </html>

@@ -4,11 +4,21 @@
 /* ---------- GENERAL ---------- */
 
 body {
+    padding: 0 15px 20px 35px;
+    background: url(../images/bg.png) repeat;
 }
 
 .prod{
     width: 800px;
     align-content: center;
+}
+
+.addToBucket a{
+    color: white;
+    font-style: normal;
+    border-bottom: none;
+    padding: 10px;
+    background-color: green;
 }
 
 .info{

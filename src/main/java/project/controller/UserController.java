@@ -1,6 +1,7 @@
 package project.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ public class UserController {
 
     private MySqlUserDao userDao;
 
+    @Transactional
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
     public String addUser(@Valid User user, Model model, Errors errors)
     {
@@ -45,6 +47,8 @@ public class UserController {
         return "register/successful";
     }
 
+
+    @Transactional
     @RequestMapping(value = "/id", method = RequestMethod.GET)
     public String information(@RequestParam Integer id, Model model){
 
@@ -57,6 +61,8 @@ public class UserController {
         return "register/successful";
     }
 
+
+    @Transactional
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     public String getAll(Model model){
 
@@ -70,6 +76,8 @@ public class UserController {
         return "user/users";
     }
 
+
+    @Transactional
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public String delete(@RequestParam Integer id, @RequestParam String password, Model model){
         try{

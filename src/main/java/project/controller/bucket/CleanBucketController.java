@@ -1,4 +1,4 @@
-package project.controller;
+package project.controller.bucket;
 
 import project.service.entity.Product;
 
@@ -23,7 +23,7 @@ public class CleanBucketController  extends HttpServlet{
 
 
     @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String idStr = req.getParameter(PARAM_ID);
         if (idStr != null){
             Integer id = Integer.parseInt(idStr);
