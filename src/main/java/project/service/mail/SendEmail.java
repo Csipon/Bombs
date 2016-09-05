@@ -1,106 +1,82 @@
 package project.service.mail;
 
-
+import com.google.api.client.auth.oauth2.Credential;
+import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
+import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.repackaged.org.apache.commons.codec.binary.Base64;
 import com.google.api.services.gmail.Gmail;
-import com.google.api.services.gmail.model.Draft;
 import com.google.api.services.gmail.model.Message;
 import org.apache.log4j.Logger;
 
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
 import javax.mail.MessagingException;
-import javax.mail.Multipart;
 import javax.mail.Session;
 import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.List;
 import java.util.Properties;
 
 public class SendEmail {
 
     final static Logger logger = Logger.getLogger(SendEmail.class);
 
+    private static HttpTransport HTTP_TRANSPORT;
+    private Credential CREDENTIAL;
+    private final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
+    private String APPLICATION_NAME = "GOOGLE-API-GMAIL";
+    private Gmail GMAIL;
 
-    // ...
+    static {
+        try {
+            HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+        } catch (Throwable t) {
+            t.printStackTrace();
+            System.exit(1);
+        }
+    }
 
-    /**
-     * Create draft email.
-     *
-     * @param service an authorized Gmail API instance
-     * @param userId user's email address. The special value "me"
-     * can be used to indicate the authenticated user
-     * @param emailContent the MimeMessage used as email within the draft
-     * @return the created draft
-     * @throws MessagingException
-     * @throws IOException
-     */
-    public static Draft createDraft(Gmail service,
-                                    String userId,
-                                    MimeMessage emailContent)
-            throws MessagingException, IOException {
-        Message message = createMessageWithEmail(emailContent);
-        Draft draft = new Draft();
-        draft.setMessage(message);
-        logger.info(draft.getMessage() == message);
+    public SendEmail(String clientId, String clientSecret, String refreshToken) throws IOException {
 
-        draft = service.users().drafts().create(userId, draft).execute();
+        CREDENTIAL = new GoogleCredential.Builder().setTransport(HTTP_TRANSPORT).setJsonFactory(JSON_FACTORY)
+                .setClientSecrets(clientId, clientSecret).build();
+        CREDENTIAL.setAccessToken("ya29.Ci9RAxspZD1n2IxYOnDEVLlhEkQdtC7FmigD6MQ1ysUL8KwzdwWeDiZ7nESC2VQdaA");
+        CREDENTIAL.setRefreshToken(refreshToken);
 
+//        CREDENTIAL = GmailQuickstart.authorize();
 
-        logger.info("Draft id: " + draft.getId());
-        logger.info(draft.toPrettyString());
-        System.out.println("Draft id: " + draft.getId());
-        System.out.println(draft.toPrettyString());
-        return draft;
+        GMAIL = new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, CREDENTIAL).setApplicationName(APPLICATION_NAME)
+                .build();
+    }
+
+    public boolean sendMessage(String userKey, Message message) {
+        try {
+//            Message msg = GMAIL.users().messages().send(userKey, message).execute();
+            System.out.println(GMAIL.users().messages().send(userKey, message).execute());
+            return true;
+
+        } catch (Exception e) {
+            System.out.println("send message Error:" + e.getMessage());
+
+            e.printStackTrace();
+            return false;
+        }
+
     }
 
 
-    /**
-     * Send an email from the user's mailbox to its recipient.
-     *
-     * @param service Authorized Gmail API instance.
-     * @param userId User's email address. The special value "me"
-     * can be used to indicate the authenticated user.
-     * @param emailContent Email to be sent.
-     * @return The sent message
-     * @throws MessagingException
-     * @throws IOException
-     */
-    public static Message sendMessage(Gmail service,
-                                      String userId,
-                                      MimeMessage emailContent)
-            throws MessagingException, IOException {
-        Message message = createMessageWithEmail(emailContent);
-        logger.info("This is before -> message = service.users().messages().send(userId, message).execute()");
-
-        Message msg = service.users().messages().send(userId, message).execute();
-
-
-        logger.info("Draft id: " + msg.getId());
-        logger.info(message.toPrettyString());
-        System.out.println("Message id: " + message.getId());
-        System.out.println(message.toPrettyString());
-        return message;
-    }
-
-
-    /**
-     * Create a message from an email.
-     *
-     * @param emailContent Email to be set to raw of message
-     * @return a message containing a base64url encoded email
-     * @throws IOException
-     * @throws MessagingException
-     */
-    public static Message createMessageWithEmail(MimeMessage emailContent)
-            throws MessagingException, IOException {
+    public Message createMessageWithEmail(MimeMessage emailContent) {
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-        emailContent.writeTo(buffer);
+        try {
+            emailContent.writeTo(buffer);
+        } catch (Exception e) {
+            System.out.println("createMessageWithEmail error: " + e.getMessage());
+            e.printStackTrace();
+        }
         byte[] bytes = buffer.toByteArray();
         String encodedEmail = Base64.encodeBase64URLSafeString(bytes);
         Message message = new Message();
@@ -108,83 +84,31 @@ public class SendEmail {
         return message;
     }
 
-    /**
-     * Create a MimeMessage using the parameters provided.
-     *
-     * @param to email address of the receiver
-     * @param from email address of the sender, the mailbox account
-     * @param subject subject of the email
-     * @param bodyText body text of the email
-     * @return the MimeMessage to be used to send email
-     * @throws MessagingException
-     */
-    public static MimeMessage createEmail(String to,
-                                          String from,
-                                          String subject,
-                                          String bodyText)
+    public MimeMessage createEmail(List<String> recipientList, String from, String subject, String bodyText)
             throws MessagingException {
         Properties props = new Properties();
         Session session = Session.getDefaultInstance(props, null);
-        logger.info(session.getDebug());
 
         MimeMessage email = new MimeMessage(session);
-        logger.info(email.getMessageID());
 
-        email.setFrom(new InternetAddress(from));
-        email.addRecipient(javax.mail.Message.RecipientType.TO,
-                new InternetAddress(to));
+        InternetAddress[] recipientAddress = new InternetAddress[recipientList.size()];
+        int counter = 0;
+        for (String recipient : recipientList) {
+            recipientAddress[counter] = new InternetAddress(recipient.trim());
+            counter++;
+        }
+        InternetAddress fromEmail = null;
+        try {
+            fromEmail = new InternetAddress(from, "TEST Gmail Example");
+        } catch (UnsupportedEncodingException e) {
+            fromEmail = new InternetAddress(from);
+            e.printStackTrace();
+        }
+        email.setFrom(fromEmail);
+        email.addRecipients(javax.mail.Message.RecipientType.TO, recipientAddress);
         email.setSubject(subject);
         email.setText(bodyText);
-        logger.info("->-> All GOOD in method createEmail!!!");
         return email;
     }
-
-
-    /**
-     * Create a MimeMessage using the parameters provided.
-     *
-     * @param to Email address of the receiver.
-     * @param from Email address of the sender, the mailbox account.
-     * @param subject Subject of the email.
-     * @param bodyText Body text of the email.
-     * @param file Path to the file to be attached.
-     * @return MimeMessage to be used to send email.
-     * @throws MessagingException
-     */
-    public static MimeMessage createEmailWithAttachment(String to,
-                                                        String from,
-                                                        String subject,
-                                                        String bodyText,
-                                                        File file)
-            throws MessagingException, IOException {
-        Properties props = new Properties();
-        Session session = Session.getDefaultInstance(props, null);
-
-        MimeMessage email = new MimeMessage(session);
-
-        email.setFrom(new InternetAddress(from));
-        email.addRecipient(javax.mail.Message.RecipientType.TO,
-                new InternetAddress(to));
-        email.setSubject(subject);
-
-        MimeBodyPart mimeBodyPart = new MimeBodyPart();
-        mimeBodyPart.setContent(bodyText, "text/plain");
-
-        Multipart multipart = new MimeMultipart();
-        multipart.addBodyPart(mimeBodyPart);
-
-        mimeBodyPart = new MimeBodyPart();
-        DataSource source = new FileDataSource(file);
-
-        mimeBodyPart.setDataHandler(new DataHandler(source));
-        mimeBodyPart.setFileName(file.getName());
-
-        multipart.addBodyPart(mimeBodyPart);
-        email.setContent(multipart);
-
-        return email;
-    }
-
-    // ...
 
 }

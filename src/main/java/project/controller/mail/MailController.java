@@ -16,6 +16,8 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServlet;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -29,8 +31,17 @@ public class MailController  extends HttpServlet {
     public String doSend(@RequestParam String to, @RequestParam String subject, @RequestParam String body) {
         logger.info("->Request Param = " +to + "| " + subject  + " | "  + body);
         try {
+            String clientId = "938252269683-1049nfdc453ua8achrq8oej9sqfgna3s.apps.googleusercontent.com";
+            String clientSecret = "jdtr6a2gyRYltAGYZmLHcqIz";
+            String refreshToken = "1/DCxeRPfsqWeulusb3FxI9m6saoap_Bd1QKSqqG-FPNY";
+
+            SendEmail sendMail = new SendEmail(clientId, clientSecret, refreshToken);
+            List<String> recipientList = new ArrayList<String>();
+            recipientList.add(to);
+            String from = "oxeygenoxeygen@gmail.com";
+
             MimeMessage mimeMessage
-                    = SendEmail.createEmail(to, "me", subject, body);
+                    = sendMail.createEmail(recipientList, from, subject, body);
             logger.info("->MimeMessage = " + mimeMessage.getReplyTo() + "| " + mimeMessage.getFrom() + "| "
                     + mimeMessage.getSubject()   + " | "  + mimeMessage.getMessageID());
 
@@ -38,8 +49,8 @@ public class MailController  extends HttpServlet {
                     = GmailQuickstart.getGmailService();
             logger.info(service.getApplicationName());
 
-            Message message
-                    = SendEmail.sendMessage(service, "oxeygenoxeygen@gmail.com", mimeMessage);
+            com.google.api.services.gmail.model.Message message = sendMail.createMessageWithEmail(mimeMessage);
+            System.err.println(sendMail.sendMessage(from, message));
             logger.info(message.getSnippet());
         } catch (MessagingException | IOException e) {
             logger.error("->Exeption someting wrong!!! ", e);
